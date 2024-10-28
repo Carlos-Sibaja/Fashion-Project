@@ -10,6 +10,4 @@ public class Ny5FashLinkApplication {
 		SpringApplication.run(Ny5FashLinkApplication.class, args);
 	}
 
-	// adding code from Carlos Test on intellij.
-
 }
