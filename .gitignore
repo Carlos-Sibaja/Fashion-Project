@@ -31,7 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-.DS_Store
-=======
->>>>>>> 62e3405 (just add a comment at application.java)
