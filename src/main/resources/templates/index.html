@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <title>NY5th FashLink</title>
+</head>
+<body>
+<header>
+    <div class="header_container">
+        <div class="login">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/sign_up}">Sign Up</a>
+        </div>
+    </div>
+</header>
+<nav>
+    <div class="nav_container">
+        <div class="logo">
+            <h1>FASHLINK</h1>
+            <p>Connecting you to your best look</p>
+        </div>
+        <div class="menu">
+            <a th:href="@{/home}">HOME</a>
+            <a th:href="@{/advisors}">ADVISORS</a>
+            <a th:href="@{/fashion}">FASHION</a>
+            <a th:href="@{/my_profile}">MY PROFILE</a>
+            <a th:href="@{/messages}">MESSAGES</a>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="main_container">
+        <div class="img_text_container">
+            <div class="img_text_container_col1">
+                <img src="/images/main_pic_1.png" style="width: 100%; height: 100%;">
+            </div>
+            <div class="img_text_container_col2">
+                <p>Unlock personalized fashion<br>
+                    tips and exclusive content<br>
+                     to elevate your style<br><br><br>
+                      <a th:href="@{/sign_up}"> Sign up for free</a>
+                </p>
+            </div>
+        </div>
+        <div class="img_text_container2">
+            <div class="img_text_container2_col1">
+                <p>
+                    Ready to elevate your fall wardrobe? Discover how to<br>
+                    perfectly style accessories with tips from our expert<br>
+                    fashion advisors. From cozy layers to chic accents, we've<br>
+                    got all the insights you need to stay warm and<br>
+                    fashionable this season. Dive into the latest trends and<br>
+                    personalized advice to make your fall outfits stand out!
+                </p>
+                <div class="button_container">
+                    <button>READ NOW</button>
+                </div>
+            </div>
+            <div class="img_text_container2_col2">
+                <img src="/images/main_pic_2.png" style="width: 100%; height: 250px">
+            </div>
+            <div class="img_text_container2_col3">
+                <img src="/images/main_pic_3.png" style="width: 100%; height: 250px;">
+            </div>
+            <div class="img_text_container2_col4">
+                <img src="/images/main_pic_4.png" style="width: 100%; height: 250px;">
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="footer_container">
+        <p>&copy; FashLink 2024. All rights reserved</p>
+    </div>
+</footer>
+</body>
+</html>
