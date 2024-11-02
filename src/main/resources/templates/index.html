@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/styles.css}"/>
@@ -9,8 +9,16 @@
 <header>
     <div class="header_container">
         <div class="login">
-            <a th:href="@{/login}">Login</a>
-            <a th:href="@{/sign_up}">Sign Up</a>
+            <span sec:authorize="isAuthenticated()">
+                <form action="#" th:action="@{/logout}" method="post" class="logout-form">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </span>
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/sign_up}">Sign Up</a>
+            </span>
         </div>
     </div>
 </header>
