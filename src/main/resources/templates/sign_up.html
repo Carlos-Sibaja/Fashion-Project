@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+  <title>Sign Up</title>
+</head>
+<body>
+<header>
+  <div class="logo_sign_up_container">
+    <a th:href="@{/}">
+      <h1>FASHLINK</h1>
+      <p>Connecting you to your best look</p>
+    </a>
+  </div>
+</header>
+<main>
+  <div class="sign_up_container">
+    <div class="sign_up_form_container">
+      <form action="#" th:action="@{/sign_up}" th:object="${user}" method="post">
+        <div class="h2_sign_up">
+          <h2>CREATE ACCOUNT</h2>
+        </div>
+        <label for="firstName">First Name | Required</label>
+        <input type="text" th:field="*{firstName}" id="firstName" required>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+
+        <label for="lastName">Last Name | Required</label>
+        <input type="text" th:field="*{lastName}" id="lastName" required>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+
+        <label for="email">Email Address | Required</label>
+        <input type="email" id="email" th:field="*{email}" required>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red; font-size: 15px;"></span>
+        <span th:if="${emailError}" th:text="${emailError}" style="color: red; font-size: 15px;"></span>
+
+        <label for="password">Password | Required</label>
+        <input type="password" id="password" th:field="*{password}" required>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red; font-size: 15px;"></span>
+
+        <div class="button_sign_up">
+          <button type="submit">CONTINUE</button>
+        </div>
+        <div class="button_google_sign_in">
+          <a href="/oauth2/authorization/google">
+            <button type="button">Sign in with Google</button>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+</body>
+</html>
