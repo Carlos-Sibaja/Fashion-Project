@@ -6,8 +6,17 @@ body{
     max-width: 1280px;
     min-width: 920px;
 }
+main{
+    padding-left: 50px;
+}
+h1{
+    font-size: 1.5em;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
 div.combobox {
-    border: 2px solid #855229;
+    border: 1px solid #855229;
     border-radius: 10px;
     padding: 10px;
     margin-right: 20px;
@@ -17,7 +26,6 @@ div.combobox {
     color: #855229;
 
     display: inline-block;
-    /*width: 18%; !* Adjust width as needed *!*/
     vertical-align: top; /* Aligns boxes vertically */
 }
 div.combobox p{
@@ -26,12 +34,14 @@ div.combobox p{
 div.combobox select{
     margin-left: 20px;
     margin-right: 15px;
-    width: 180px;
+    width: 200px;
 }
 div.combobox input{
     margin-left: 20px;
     margin-right: 15px;
-    width: 360px;
+}
+table, tr, td{
+    /*border: 1px solid black;*/
 }
 table{
     width: 95%;
@@ -43,8 +53,10 @@ td.line1{
     font-weight: bold;
     width: 70%;
 }
+td.line1 {
+    font-weight: bold;
+}
 td#picture{
-    /*padding-bottom: 20px;*/
     padding-left: 0px;
 }
 td#categories{
@@ -72,14 +84,12 @@ td.line3{
     font-size: 0.8em;
 }
 td.line4{
-    font-size: 0.9em;
     padding-top: 20px;
-
-    text-align: justify;
-    padding-bottom: 50px;
-    padding-right: 40px;
 }
 td.btn-adv1 > img{
     width: 160px;
     padding-top: 30px;
+}
+button{
+    border: 0px;
 }

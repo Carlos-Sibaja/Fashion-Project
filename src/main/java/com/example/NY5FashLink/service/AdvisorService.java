@@ -1,6 +1,7 @@
 package com.example.NY5FashLink.service;
 
 import com.example.NY5FashLink.model.Advisor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -65,12 +66,28 @@ public class AdvisorService {
             }
         }
 
-        System.out.println(name);
-
-        System.out.println(query.toString());
+        //System.out.println(query.toString());
 
         return mongoTemplate.find(query, Advisor.class);
     }
 
+    public Advisor findById(String advisorID){
+
+        // Check if the advisorId is a valid ObjectId format
+        if (advisorID == null || !ObjectId.isValid(advisorID)) {
+            System.out.println("Invalid ObjectId format: " + advisorID);
+            return null;
+        }
+
+        // Convert the string userId to an ObjectId
+        ObjectId objectId = new ObjectId(advisorID);
+
+        // Create the query to filter by _id field (for users)
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").is(objectId));
+
+        return mongoTemplate.findOne(query, Advisor.class);
+    }
 }
+
 
