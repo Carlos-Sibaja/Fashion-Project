@@ -17,7 +17,7 @@
 <main>
   <div class="sign_up_container">
     <div class="sign_up_form_container">
-      <form action="#" th:action="@{/sign_up}" th:object="${user}" method="post">
+      <form action="#" th:action="@{/sign_up}" th:object="${userRegistrationDTO}" method="post">
         <div class="h2_sign_up">
           <h2>CREATE ACCOUNT</h2>
         </div>
@@ -34,9 +34,40 @@
         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red; font-size: 15px;"></span>
         <span th:if="${emailError}" th:text="${emailError}" style="color: red; font-size: 15px;"></span>
 
+        <label for="gender">Gender | Required</label>
+        <select id="gender" th:field="*{gender}">
+          <option value="option">Select an Option</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="phone">Phone | Optional</label>
+        <input type="tel" th:field="*{phone}" id="phone">
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" th:field="*{dob}" min="1900-01-01" max="2004-12-31" required>
+
         <label for="password">Password | Required</label>
         <input type="password" id="password" th:field="*{password}" required>
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red; font-size: 15px;"></span>
+
+        <label for="role">Select Role | Required</label>
+        <select th:field="*{role}" id="role" onchange="toggleFields()" required>
+          <option value="option">Select an Option</option>
+          <option value="CUSTOMER">Customer</option>
+          <option value="ADVISOR">Advisor</option>
+        </select>
+        <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
+
+        <div id="advisorFields" style="display: none">
+          <label for="expertise">Select Expertise | Required</label>
+          <select th:field="*{expertise}" id="expertise" required>
+            <option value="option">Select an Option</option>
+            <option value="Casual Wear">Casual Wear</option>
+            <option value="Formal Wear">Formal Wear</option>
+          </select>
+        </div>
 
         <div class="button_sign_up">
           <button type="submit">CONTINUE</button>
@@ -51,4 +82,16 @@
   </div>
 </main>
 </body>
+<script>
+  function toggleFields() {
+    let role = document.getElementById("role").value;
+    let advisor = document.getElementById("advisorFields");
+
+    if (role === "ADVISOR") {
+      advisor.style.display = "block";
+    } else {
+      advisor.style.display = "none";
+    }
+  }
+</script>
 </html>
