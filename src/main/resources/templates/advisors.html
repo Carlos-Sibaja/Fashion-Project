@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/advisors.css}"/>
+    <script th:src="@{/advisors.js}" defer></script>
+    <title>NY5th FashLink</title>
+  </head>
+  <body>
+    <head>
+
+      <!--LOGO + MENU-->
+      <div class="nav_container">
+        <div class="logo">
+          <img src="/images/fashlink_logo.png">
+        </div>
+        <div class="menu">
+          <a th:href="@{/home}">HOME</a>
+          <a th:href="@{/advisors}">ADVISORS</a>
+          <a th:href="@{/fashion}">FASHION</a>
+          <a th:href="@{/my_profile}">MY PROFILE</a>
+          <a th:href="@{/messages}">MESSAGES</a>
+        </div>
+      </div>
+    </head>
+
+    <!--FORM-->
+    <form action="/advisors/filter" id="frmAdvisors" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+      <div id="filter">
+
+        <!--Category-->
+        <div class="combobox">
+          <p>Category</p>
+
+          <select name="category" id="category" required onchange="filter()">
+            <option value="" th:selected="${selectedCategory == null}">-- ALL --</option>
+            <option value="business" th:selected="${selectedCategory == 'BUSINESS'}">Business</option>
+            <option value="casual_outing" th:selected="${selectedCategory == 'CASUAL OUTING'}">Casual Outing</option>
+            <option value="formal_event" th:selected="${selectedCategory == 'FORMAL EVENT'}">Formal Event</option>
+            <option value="party" th:selected="${selectedCategory == 'PARTY'}">Party</option>
+            <option value="seasonal_trends" th:selected="${selectedCategory == 'SEASONAL TRENDS'}">Seasonal Trends</option>
+            <option value="streetwear" th:selected="${selectedCategory == 'STREETWEAR'}">Streetwear</option>
+            <option value="sustainable_fashion" th:selected="${selectedCategory == 'SUSTAINABLE FASHION'}">Sustainable Fashion</option>
+          </select>
+        </div>
+
+        <!--Availability-->
+        <div class="combobox">
+          <p>I'm available</p>
+          <select name="availability" id="availability" required onchange="filter()">
+            <option value="" th:selected="${selectedAvailability == null}">-- ALL --</option>
+            <option value="morning" th:selected="${selectedAvailability == 'morning'}">Morning</option>
+            <option value="afternoon" th:selected="${selectedAvailability == 'afternoon'}">Afternoon</option>
+            <option value="evening" th:selected="${selectedAvailability == 'evening'}">Evening</option>
+          </select>
+        </div>
+
+        <!--Price per consultation-->
+        <div class="combobox">
+          <p>Price per consultation</p>
+          <select name="price" id="price" required onchange="filter()">
+            <option value="" th:selected="${selectedMinCost == null and selectedMaxCost == null}">-- ALL --</option>
+            <option value="price00_10" th:selected="${selectedMinCost >= -0.01 and selectedMaxCost == 10}">US$ 0.00 - US$ 10.00</option>
+            <option value="price10_20" th:selected="${selectedMinCost > 10 and selectedMaxCost == 20}">US$ 10.00 - US$ 20.00</option>
+            <option value="price20_30" th:selected="${selectedMinCost > 20 and selectedMaxCost == 30}">US$ 20.00 - US$ 30.00</option>
+            <option value="price_gt_30" th:selected="${selectedMinCost > 30}">US$ 30.00 +</option>
+          </select>
+          <input type="hidden" id="minCost" name="minCost" th:value="${selectedMinCost}">
+          <input type="hidden" id="maxCost" name="maxCost" th:value="${selectedMaxCost}">
+        </div>
+
+        <!--Search by name-->
+        <div id="combobox.name" class="combobox">
+          <p>Search by name</p>
+          <input type="text" name="name" id="name" th:value="${selectedName}" maxlength="100" required onkeyup="filter()">
+          <script>
+            // Check if selectedName is not empty
+            document.addEventListener("DOMContentLoaded", function() {
+              const name = document.getElementById("name");
+
+              if (name.value) {
+                name.focus();
+                name.setSelectionRange(name.value.length, name.value.length);
+              }
+            });
+          </script>
+        </div>
+      </div>
+
+      <!--LIST OF ADVISORS-->
+      <table th:each="advisor : ${advisors}">
+        <tbody>
+
+        <!--1st line: Picture + Categories + Rating + Price + buttons-->
+        <tr>
+          <td id="picture" rowspan="4"><img th:src="${advisor.urlPicture}" alt="advisor picture"></td>
+          <td id="categories" class="line1" th:text="${#strings.replace(advisor.categories, '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td>
+          <td id="rating" class="line1">
+            <img src="/images/star.png" alt="rating"/>
+            <span th:text="${advisor.rating}"></span>
+          </td>
+          <td id="cost" class="line1" th:text="${'US$ ' + advisor.consultationCost}">Cost</td>
+          <td class="btn-adv1" rowspan="4">
+            <p><img src="/images/adv_btn_schedule.png"/></p>
+            <p><img src="/images/adv_btn_sendmsg.png"></p>
+          </td>
+        </tr>
+
+        <!--2nd line: Advisor's name-->
+        <tr>
+          <td class="line2" th:text="${advisor.firstName + ' ' + advisor.lastName.charAt(0) + '.'}" colspan="3">First Name</td>
+        </tr>
+
+        <!--3rd line: Number Reviews | Active Clients | Number Consultations-->
+        <tr>
+          <td class="line3" th:text="${advisor.numberReviews + ' reviews  |  '
+                      + advisor.activeClients + ' active clients  |  '
+                      + advisor.numberConsultations + ' consultations'}" colspan="3">Consultations</td>
+        </tr>
+
+        <!--4th line: Advisor's profile-->
+        <tr>
+          <td class="line4" th:text="${advisor.profile}" colspan="3">Profile</td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+
+
+  </body>
+</html>
