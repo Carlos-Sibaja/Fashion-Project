@@ -15,54 +15,30 @@ public class UserService {
 
     // Sign Up
     public void registerUser(UserRegistrationDTO registrationDTO) {
-        User user = new User();
+        Users users = new Users();
 
         // Set common fields
-        user.setFirstName(registrationDTO.getFirstName());
-        user.setLastName(registrationDTO.getLastName());
-        user.setEmail(registrationDTO.getEmail());
-        user.setPhone(registrationDTO.getPhone());
-        user.setGender(registrationDTO.getGender());
-        user.setDob(registrationDTO.getDob());
-        user.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
-        user.setRole(registrationDTO.getRole());
+        users.setFirstName(registrationDTO.getFirstName());
+        users.setLastName(registrationDTO.getLastName());
+        users.setEmail(registrationDTO.getEmail());
+        users.setPhone(registrationDTO.getPhone());
+        users.setGender(registrationDTO.getGender());
+        users.setDob(registrationDTO.getDob());
+        users.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
+        users.setRole(registrationDTO.getRole());
 
         // Set advisor-specific fields if the user is an advisor
         if (registrationDTO.getRole().equals(Role.ADVISOR)) {
             AdvisorInfo advisorInfo = new AdvisorInfo();
             advisorInfo.setExpertise(registrationDTO.getExpertise());
             advisorInfo.setRating(registrationDTO.getRating());
-            user.setAdvisorInfo(advisorInfo);
+            users.setAdvisorInfo(advisorInfo);
         }
 
-        userRepository.save(user);
+        userRepository.save(users);
     }
 
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
-    }
-
-    // Log in
-    public AuthenticationResult validateUserCredentials(String email, String password) {
-        User user = userRepository.findByEmail(email);
-
-        if (user == null) {
-            // User not found
-            return AuthenticationResult.USER_NOT_FOUND;
-        }
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            // Wrong password
-            return AuthenticationResult.WRONG_PASSWORD;
-        }
-
-        // Success
-        return AuthenticationResult.SUCCESS;
-    }
-
-    public enum AuthenticationResult {
-        SUCCESS,
-        USER_NOT_FOUND,
-        WRONG_PASSWORD
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Document(collection = "users")
-public class Advisor extends User {
+public class Advisor extends Users {
 
     @Field(value = "advisor.numberReviews")
     private int numberReviews;
