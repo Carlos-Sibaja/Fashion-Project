@@ -4,6 +4,18 @@
     box-sizing: border-box;
 }
 
+/* GENERAL SETTINGS - ALL PAGES */
+body{
+    width: 95%;
+    margin: auto;
+
+    font-family: Geneva, Arial, Helvetica, Tahoma, Verdana, sans-serif;
+    background-color: #f6f4f3;
+    color: rgb(77, 77, 77);
+
+    display: block;
+}
+
 /* INDEX.HTML */
 /* <header> and <nav> */
 
@@ -41,6 +53,7 @@ header, nav {
     align-items: center;
     justify-content: space-between;
     margin-right: 70px;
+    padding-top: 40px;
 }
 
 /* <main> */

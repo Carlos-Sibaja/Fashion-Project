@@ -2,32 +2,44 @@ package com.example.NY5FashLink.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "users")
-public class User {
+public class Users {
+    @Setter
+    @Getter
     @Id
     private String id;
     @NotEmpty(message = "First name is required")
+    @Field(value = "name")
     private String firstName;
     @NotEmpty(message = "Last name is required")
+    @Field(value = "lastname")
     private String lastName;
     @NotEmpty(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
-
+    @Setter
+    @Getter
     private String phone;
+    @Setter
+    @Getter
+    private String gender;
+    @Setter
+    @Getter
+    private String dob;
     @NotEmpty(message = "Password is required")
     private String password;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    @Setter
+    @Getter
+    private Role role;
+    @Setter
+    @Getter
+    private AdvisorInfo advisorInfo;
 
     public @NotEmpty(message = "First name is required") String getFirstName() {
         return firstName;
@@ -53,14 +65,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public @NotEmpty(message = "Password is required") String getPassword() {
         return password;
     }
@@ -68,4 +72,5 @@ public class User {
     public void setPassword(@NotEmpty(message = "Password is required") String password) {
         this.password = password;
     }
+
 }
