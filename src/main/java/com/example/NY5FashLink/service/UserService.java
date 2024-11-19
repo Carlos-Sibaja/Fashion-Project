@@ -3,7 +3,10 @@ package com.example.NY5FashLink.service;
 import com.example.NY5FashLink.model.*;
 import com.example.NY5FashLink.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,6 +42,25 @@ public class UserService {
     }
 
     public boolean emailExists(String email) {
-        return userRepository.findByEmail(email) != null;
+        return userRepository.findByEmail(email).isPresent();
+    }
+
+    // Get logged-in user
+    public String getLoggedInUserFirstName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            // Check if the user is authenticated via OAuth2
+            if (authentication.getPrincipal() instanceof OAuth2User) {
+                OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+                // Access user's first name (you can modify the attribute based on the OAuth2 provider)
+                return oauth2User.getAttribute("given_name");
+            }
+            // Check if the user is authenticated via form login
+            else if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
+                return authentication.getName(); // Returns the email
+            }
+        }
+        return null; // No authenticated user
     }
 }
