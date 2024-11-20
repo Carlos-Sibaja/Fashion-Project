@@ -8,9 +8,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.web.multipart.MultipartFile;
 
 @Document(collection = "users")
-public class User {
+public class Users {
     @Setter
     @Getter
     @Id
@@ -42,6 +43,9 @@ public class User {
     @Setter
     @Getter
     private AdvisorInfo advisorInfo;
+    @Setter
+    @Getter
+    private String profilePictureURL;
 
     public @NotEmpty(message = "First name is required") String getFirstName() {
         return firstName;

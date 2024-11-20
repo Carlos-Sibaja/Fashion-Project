@@ -1,8 +1,10 @@
 package com.example.NY5FashLink.repository;
 
-import com.example.NY5FashLink.model.User;
+import com.example.NY5FashLink.model.Users;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends MongoRepository<User, String> {
-    User findByEmail(String email);
+import java.util.Optional;
+
+public interface UserRepository extends MongoRepository<Users, String> {
+    Optional<Users> findByEmail(String email);
 }

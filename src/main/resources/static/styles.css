@@ -28,11 +28,26 @@ header, nav {
     justify-content: flex-end;
 }
 
+.logout_form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout_form button{
+    border: none;
+    color: darkslategray;
+    background-color: #f6f4f3;
+    font-size: 16px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
 .login a {
     color: darkslategray;
     text-decoration: none;
     font-size: 15px;
     margin-left: 15px;
+    font-weight: bold;
 }
 
 .menu a {
@@ -44,7 +59,7 @@ header, nav {
     margin-right: 40px;
 }
 
-.login a:hover, .menu a:hover {
+.login a:hover, .menu a:hover, .logout_form button:hover {
     color: darkgoldenrod;
 }
 
