@@ -1,6 +1,6 @@
 package com.example.NY5FashLink.service;
 
-import com.example.NY5FashLink.model.User;
+import com.example.NY5FashLink.model.Users;
 import com.example.NY5FashLink.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
