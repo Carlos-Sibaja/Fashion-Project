@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.web.multipart.MultipartFile;
 
 @Document(collection = "users")
 public class Users {
@@ -40,6 +41,9 @@ public class Users {
     @Setter
     @Getter
     private AdvisorInfo advisorInfo;
+    @Setter
+    @Getter
+    private String profilePictureURL;
 
     public @NotEmpty(message = "First name is required") String getFirstName() {
         return firstName;

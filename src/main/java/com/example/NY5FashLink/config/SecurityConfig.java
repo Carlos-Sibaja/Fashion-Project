@@ -1,5 +1,7 @@
 package com.example.NY5FashLink.config;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.NY5FashLink.service.CustomUserDetailsService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -96,6 +98,7 @@ public class SecurityConfig {
                 .build();
     }
 
+    // Getting the Environment variables stored locally
     private String getClientId() {
         return env.getProperty("OAUTH_CLIENT_ID");
     }
