@@ -1,23 +1,51 @@
 package com.example.NY5FashLink.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.NY5FashLink.model.*;
 import com.example.NY5FashLink.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
+@AllArgsConstructor
 public class UserService {
-    @Autowired
+
     private UserRepository userRepository;
-    @Autowired
+
     private PasswordEncoder passwordEncoder;
 
+    private Cloudinary cloudinary;
+
+
+    public String uploadProfilePicture(MultipartFile file) throws IOException {
+        // Convert the MultipartFile to a byte array
+        byte[] fileBytes = file.getBytes();
+
+        // Add required metadata
+        Map<String, Object> uploadOptions = new HashMap<>();
+        uploadOptions.put("resource_type", "image");
+
+        // Upload file to Cloudinary
+        Map uploadResult = cloudinary.uploader().upload(fileBytes, uploadOptions);
+
+        // Extract and return the uploaded file's URL
+        return (String) uploadResult.get("secure_url");
+    }
+
     // Sign Up
-    public void registerUser(UserRegistrationDTO registrationDTO) {
+    public void registerUser(UserRegistrationDTO registrationDTO, MultipartFile profilePicture) throws IOException {
         Users users = new Users();
 
         // Set common fields
@@ -37,6 +65,15 @@ public class UserService {
             advisorInfo.setRating(registrationDTO.getRating());
             users.setAdvisorInfo(advisorInfo);
         }
+
+        try {
+            // Upload profile picture and get URL
+            String pictureUrl = uploadProfilePicture(profilePicture);
+            users.setProfilePictureURL(pictureUrl);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload profile picture", e);
+        }
+
 
         userRepository.save(users);
     }

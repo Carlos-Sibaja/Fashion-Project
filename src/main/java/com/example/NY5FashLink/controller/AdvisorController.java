@@ -64,5 +64,22 @@ public class AdvisorController {
         return "advisors"; // Return the view name to render the advisors page
     }
 
+    // Redirect to booking page according to advisor's ID
+    @GetMapping("/book/{id}")
+    public String viewBookingPage(@PathVariable("id") String advisorId, Model model) {
+
+        Advisor advisor = advisorService.findById(advisorId);
+        model.addAttribute("advisor", advisor);
+
+        // Debugging: print the result to see if it's found
+        if (advisor != null) {
+            System.out.println("Advisor found: " + advisor);
+        } else {
+            System.out.println("No advisor found with ID: " + advisorId);
+        }
+
+        return "booking";
+    }
+
 }
 
