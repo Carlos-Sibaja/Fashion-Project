@@ -2,6 +2,7 @@ package com.example.NY5FashLink.controller;
 
 import com.example.NY5FashLink.model.Advisor;
 import com.example.NY5FashLink.service.AdvisorService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

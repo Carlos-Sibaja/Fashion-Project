@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- Advertising Module -->
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+  <title>Advertising Module</title>
+  </head>
+  <body>
+  <header>
+    <div class="logo_sign_up_container">
+      <a th:href="@{/}">
+        <h1>FASHLINK - Advertising  Module</h1>
+        <p>Connecting you to your best look</p>
+      </a>
+    </div>
+  </header>
+  <main>
+    <div class="sign_up_container">
+      <div class="sign_up_form_container">
+        form action="#" th:action="@{/ads.html}" th:object="${userRegistrationDTO}"
+        method="post" enctype="multipart/form-data">
+          <div class="h2_sign_up">
+            <h2>UPLOAD ADVERTISING PIECE</h2>
+          </div>
+          <label for="storeName">First Name | Required</label>
+          <input type="text" th:field="*{storeName}" id="firstName" required>
+          <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{storeName}"></span>
+
+          <label for="lastName">Last Name | Required</label>
+          <input type="text" th:field="*{lastName}" id="lastName" required>
+          <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+
+          <label for="email">Email Address | Required</label>
+          <input type="email" id="email" th:field="*{email}" required>
+          <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red; font-size: 15px;"></span>
+          <span th:if="${emailError}" th:text="${emailError}" style="color: red; font-size: 15px;"></span>
+
+          <label for="profilePicture">Profile Picture | Optional</label>
+          <input type="file" th:field="*{profilePicture}" id="profilePicture" accept="image/*">
+
+          <label for="gender">Gender | Required</label>
+          <select id="gender" th:field="*{gender}">
+            <option value="option">Select an Option</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label for="phone">Phone | Optional</label>
+          <input type="tel" th:field="*{phone}" id="phone">
+
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" th:field="*{dob}" min="1900-01-01" max="2004-12-31" required>
+
+          <label for="password">Password | Required</label>
+          <input type="password" id="password" th:field="*{password}" required>
+          <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red; font-size: 15px;"></span>
+
+          <label for="role">Select Role | Required</label>
+          <select th:field="*{role}" id="role" onchange="toggleFields()" required>
+            <option value="option">Select an Option</option>
+            <option value="CUSTOMER">Customer</option>
+            <option value="ADVISOR">Advisor</option>
+            <option value="STORE">Store</option>
+          </select>
+          <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
+
+          <div id="advisorFields" style="display: none">
+            <label for="expertise">Select Expertise | Required</label>
+            <select th:field="*{expertise}" id="expertise" required>
+              <option value="option">Select an Option</option>
+              <option value="Casual Wear">Casual Wear</option>
+              <option value="Formal Wear">Formal Wear</option>
+            </select>
+          </div>
+
+          <div class="button_sign_up">
+            <button type="submit">CONTINUE</button>
+          </div>
+          <div class="button_google_sign_in">
+            <a href="/oauth2/authorization/google">
+              <button type="button">Sign in with Google</button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  </body>
+  <script>
+    function toggleFields() {
+      let role = document.getElementById("role").value;
+      let advisor = document.getElementById("advisorFields");
+
+      if (role === "ADVISOR") {
+        advisor.style.display = "block";
+      } else {
+        advisor.style.display = "none";
+      }
+    }
+  </script>
+</html>
