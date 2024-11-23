@@ -4,16 +4,19 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.web.multipart.MultipartFile;
 
 @Document(collection = "users")
 public class Users {
     @Setter
     @Getter
     @Id
-    private String id;
+    private ObjectId id;
+    //private String id;
     @NotEmpty(message = "First name is required")
     @Field(value = "name")
     private String firstName;
@@ -40,6 +43,9 @@ public class Users {
     @Setter
     @Getter
     private AdvisorInfo advisorInfo;
+    @Setter
+    @Getter
+    private String profilePictureURL;
 
     public @NotEmpty(message = "First name is required") String getFirstName() {
         return firstName;
