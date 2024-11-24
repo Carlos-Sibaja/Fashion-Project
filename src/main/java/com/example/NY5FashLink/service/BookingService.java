@@ -5,13 +5,16 @@ import com.example.NY5FashLink.model.BookingWithAdvisor;
 import com.example.NY5FashLink.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.bson.Document;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.ObjectOperators;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.bson.types.ObjectId;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -35,11 +38,25 @@ public class BookingService {
                         )
                         .build(),
 
+                // Create a combined datetime field
+                Aggregation.addFields()
+                        .addField("bookingDateTime").withValue(
+                                new Document("$dateFromString",
+                                        new Document("dateString",
+                                                new Document("$concat", Arrays.asList("$booking.bookingDate", "T", "$booking.bookingTime"))
+                                        )
+                                )
+                        )
+                        .build(),
+
                 // Perform a lookup to join with the 'users' collection
                 Aggregation.lookup("users", "advisorIdAsObjectId", "_id", "advisorDetails"),
 
                 // Unwind the advisorDetails array
                 Aggregation.unwind("advisorDetails", true),
+
+                // Sort by the combined datetime field
+                Aggregation.sort(Sort.by(Sort.Direction.ASC, "bookingDateTime")),
 
                 // Project the required fields
                 Aggregation.project()

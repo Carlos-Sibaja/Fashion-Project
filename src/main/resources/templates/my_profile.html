@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/styles.css}"/>
-    <link rel="stylesheet" th:href="@{/booking.css}"/>
-    <script th:src="@{/booking.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/my_profile.css}"/>
+    <script th:src="@{/my_profile.js}" defer></script>
     <title>NY5th FashLink</title>
   </head>
   <body>
@@ -50,34 +50,62 @@
       </div>
 
       <!--FORM-->
-
-
       <form action="/consultation" id="frmConsultation" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-        <h1>Next Consultation</h1>
-        <table>
-          <!--1st line: Picture + Categories + Date/Time + button-->
-          <tr>
-            <td id="picture" rowspan="4"><img th:src="${bookings.getUrlPicture()}" alt="advisor picture"></td>
-            <td id="categories" class="line1" th:text="${#strings.replace(bookings.getCategories(), '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td>
-            <td class="btn-adv1" rowspan="4">
-              <p th:text="${bookings.getDate().concat(' - ').concat(bookings.getTime())}">Schedule </p>
-              <span th:text="${bookings.getFormattedDateTime()}"></span>
-              <button type="submit">
-                <img src="/images/adv_btn_schedule.png" alt="schedule">
-              </button>
-            </td>
-          </tr>
+        <!--NEXT CONSULTATION-->
+        <div id="next-consultation">
+          <table id="table-next-cons">
 
-          <!--2nd line: Advisor's name-->
-          <tr>
-            <td class="line2" th:text="${bookings.getFirstName() + ' ' + bookings.getLastName().charAt(0) + '.'}" colspan="3">First Name</td>
-          </tr>
+            <!--1st line: Picture + Categories + Date/Time + button-->
+            <tr>
+              <td class="next-cons-picture" rowspan="4"><img th:src="${bookings.get(0).getUrlPicture()}" alt="advisor picture"></td>
+              <td>
+                <table class="next-consultation">
+                  <tr><td class="title" colspan="3" >Next Consultation:</td></tr>
+                  <tr><td class="categories" th:text="${#strings.replace(bookings.get(0).getCategories(), '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td></tr>
+                </table>
+              </td>
+              <td class="btn-adv1" rowspan="4">
+                <p th:text="${bookings.get(0).getFormattedDateTime}">Schedule</p>
+                <button id="btn_consultation" type="submit">
+                  <img src="/images/adv_btn_enterconsultation.png" alt="enter consultation">
+                </button>
+              </td>
+            </tr>
 
+            <!--2nd line: Advisor's name-->
+            <tr>
+              <td class="advName" th:text="${bookings.get(0).getFirstName() + ' ' + bookings.get(0).getLastName().charAt(0) + '.'}" colspan="3">First Name</td>
+            </tr>
+          </table>
+        </div>
 
-        </table>
+        <h1>Upcoming Consultations</h1>
+        <div id="upc-consultation">
+          <table id="table-upc-cons" th:each="booking, iterStat : ${bookings}" th:if="${iterStat.index > 0}">
 
+            <!--1st line: Picture + Categories + Date/Time + button-->
+            <tr>
+              <td class="upc-cons-picture" rowspan="4"><img class="upc-adv-picture" th:src="${booking.urlPicture}" alt="advisor picture"></td>
+              <td class="categories-upc" th:text="${#strings.replace(booking.categories, '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td>
+              <td class="btn-adv1" rowspan="4">
+                <p th:text="${booking.formattedDateTime}">Schedule</p>
+                <button class="upc-btn-resched" type="submit">
+                  <img src="/images/adv_btn_reschedule.png" alt="schedule">
+                </button>
+                <button class="upc-btn-cancel" type="submit">
+                  <img src="/images/adv_btn_cancel.png" alt="cancel">
+                </button>
+              </td>
+            </tr>
+
+            <!--2nd line: Advisor's name-->
+            <tr>
+              <td class="advName-upc" th:text="${booking.firstName + ' ' + booking.lastName.charAt(0) + '.'}" colspan="3">First Name</td>
+            </tr>
+          </table>
+        </div>
       </form>
     </main>
   </body>

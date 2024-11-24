@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "transactions")
 @Data
 public class Booking extends Transaction{
-    @Field(value = "booking.bookingID")
-    private int bookingId;
     @Field(value = "booking.customerEmail")
     private String customerEmail;
     @Field(value = "booking.bookingDate")

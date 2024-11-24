@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+body{
+    width: 95%;
+    margin: auto;
+    max-width: 1280px;
+    min-width: 920px;
+}
+main{
+    padding-left: 50px;
+}
+div#next-consultation{
+    width: 95%;
+    background-color: #e6c7bd;
+    padding: 10px;
+    margin-top: 30px;
+}
+table{
+    width: 95%;
+}
+td{
+    padding-left: 10px;
+    /*border: 1px solid black;*/
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+table#table-next-cons{
+    width: 100%;
+}
+td.next-cons-picture{
+    width: 180px;
+    padding-left: 0px;
+}
+td.upc-cons-picture{
+    width: 150px;
+    padding-left: 0px;
+}
+td.upc-cons-picture > img{
+    width: 120px;
+    padding-left: 0px;
+}
+td.title{
+    width: 600px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+td.categories{
+    width: 60%;
+    padding-top: 10px;
+    font-size: 1.2em;
+}
+td.categories-upc{
+    width: 60%;
+    padding-top: 10px;
+    font-size: 1em;
+}
+td.advName{
+    font-weight: bold;
+    font-size: 2.5em;
+
+    padding-left: 20px;
+    padding-bottom: 30px;
+}
+td.advName-upc{
+    font-weight: bold;
+    font-size: 1.8em;
+
+    padding-bottom: 30px;
+}
+td.btn-adv1{
+    text-align: center;
+    padding-right: 10px;
+}
+td.btn-adv1 > p{
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-bottom: 10px;
+}
+td.btn-adv1 > img{
+    width: 160px;
+    padding-top: 30px;
+    /*padding-bottom: 40px;*/
+}
+button{
+    cursor: pointer;
+}
+button#btn_consultation{
+    border: 0px;
+    background-color: #e6c7bd;
+}
+button.upc-btn-resched, button.upc-btn-cancel{
+    border: 0px;
+    background-color: #f6f4f3;
+}
+button.upc-btn-cancel{
+    padding-bottom: 30px;
+}
+h1{
+    font-size: 1.5em;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

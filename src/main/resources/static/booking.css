@@ -41,17 +41,13 @@ div.combobox input{
     margin-right: 15px;
 }
 table, tr, td{
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 table{
     width: 95%;
 }
 td{
     padding-left: 10px;
-}
-td.line1{
-    font-weight: bold;
-    width: 70%;
 }
 td.line1 {
     font-weight: bold;
@@ -62,16 +58,6 @@ td#picture{
 td#categories{
     width: 60%;
     padding-top: 10px;
-}
-td#rating, td#cost{
-    width: 15%;
-    text-align: right;
-    padding-right: 40px;
-}
-td#rating > img{
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
 }
 td.line2{
     font-weight: bold;
@@ -92,4 +78,5 @@ td.btn-adv1 > img{
 }
 button{
     border: 0px;
+    cursor: pointer;
 }

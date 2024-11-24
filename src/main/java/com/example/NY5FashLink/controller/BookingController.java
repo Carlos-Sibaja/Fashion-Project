@@ -45,22 +45,29 @@ public class BookingController {
         // Retrieve bookings related to the logged-in user
         List<BookingWithAdvisor> bookings = bookingService.getBookingsWithAdvisors(loggedInUserEmail);
 
-        // Define the date and time formatter
-//        DateTimeFormatter dateTimeFormatterYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        DateTimeFormatter dateTimeFormatterDMY = DateTimeFormatter.ofPattern("EEE., MMM dd yyyy hh:mm a");
-//
-//
-//        // Loop through bookings and combine date and time
-//        for (BookingWithAdvisor booking : bookings) {
-//            String combinedDateTime = booking.getDate() + " " + booking.getTime();  // Combine date and time
-//            LocalDateTime formattedDateTimeYMD = LocalDateTime.parse(combinedDateTime, dateTimeFormatterYMD);  // Convert to LocalDateTime
-//            LocalDateTime formattedDateTimeDMY = LocalDateTime.parse(formattedDateTimeYMD.toString(), dateTimeFormatterDMY);  // Convert to LocalDateTime
-//            //booking.setFormattedDateTime(formattedDateTime.toString());  // Set the formatted date and time
-//            System.out.println(formattedDateTimeDMY);
-//        }
+        // Define the original date-time format (yyyy-MM-dd HH:mm)
+        DateTimeFormatter dateTimeFormatterYMD = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        // Define the target format (For example: Sun., Nov. 24, 2024 - 12:00pm)
+        DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("EEE, MMM. dd yyyy - h:mm a");
+
+        // Loop through bookings and combine date and time
+        for (BookingWithAdvisor booking : bookings) {
+            // Combine date and time into a single string
+            String combinedDateTime = booking.getDate() + " " + booking.getTime();
+
+            // Parse the combined date-time string into a LocalDateTime object
+            LocalDateTime formattedDateTimeYMD = LocalDateTime.parse(combinedDateTime, dateTimeFormatterYMD);
+
+            // Format the LocalDateTime object into the desired output format
+            String formattedDateTime = formattedDateTimeYMD.format(targetFormatter);
+
+            // Set the formatted date-time to the booking object
+            booking.setFormattedDateTime(formattedDateTime);
+        }
 
         // Add data to the model
-        model.addAttribute("bookings", bookings.get(0));
+        System.out.println(bookings);
+        model.addAttribute("bookings", bookings);
         model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("loggedInUserEmail", loggedInUserEmail);
 
