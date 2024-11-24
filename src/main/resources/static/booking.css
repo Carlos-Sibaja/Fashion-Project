@@ -41,7 +41,7 @@ div.combobox input{
     margin-right: 15px;
 }
 table, tr, td{
-    /*border: 1px solid black;*/
+    border: 1px solid black;
 }
 table{
     width: 95%;

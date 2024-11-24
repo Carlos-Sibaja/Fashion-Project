@@ -2,6 +2,7 @@ package com.example.NY5FashLink.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -79,4 +80,6 @@ public class Users {
         this.password = password;
     }
 
+    // No-arg constructor
+    public Users() {}
 }

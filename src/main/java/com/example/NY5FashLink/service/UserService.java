@@ -100,4 +100,22 @@ public class UserService {
         }
         return null; // No authenticated user
     }
+
+    // Get logged-in user
+    public String getLoggedInUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            // Check if the user is authenticated via OAuth2
+            if (authentication.getPrincipal() instanceof OAuth2User) {
+                OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+                return oauth2User.getAttribute("email");
+            }
+            // Check if the user is authenticated via form login
+            else if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
+                return authentication.getName(); // Returns user email
+            }
+        }
+        return null; // No authenticated user
+    }
 }
