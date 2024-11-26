@@ -90,7 +90,7 @@ public class UserService {
             // Check if the user is authenticated via OAuth2
             if (authentication.getPrincipal() instanceof OAuth2User) {
                 OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-                // Access user's first name (you can modify the attribute based on the OAuth2 provider)
+                // Access user's first name
                 return oauth2User.getAttribute("given_name");
             }
             // Check if the user is authenticated via form login

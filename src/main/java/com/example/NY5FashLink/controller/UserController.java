@@ -22,7 +22,6 @@ import java.io.IOException;
 public class UserController {
 
     private final UserService userService;
-    //private final CloudinaryService cloudinaryService;
 
     // Define a constant for the maximum file size (in bytes)
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB

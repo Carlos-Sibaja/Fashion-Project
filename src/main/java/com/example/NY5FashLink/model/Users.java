@@ -16,8 +16,8 @@ public class Users {
     @Setter
     @Getter
     @Id
-    private ObjectId id;
-    //private String id;
+    //private ObjectId id;
+    private String id;
     @NotEmpty(message = "First name is required")
     @Field(value = "name")
     private String firstName;
