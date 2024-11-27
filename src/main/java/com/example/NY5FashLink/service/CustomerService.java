@@ -1,11 +1,9 @@
 package com.example.NY5FashLink.service;
 
 import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import com.example.NY5FashLink.model.*;
 import com.example.NY5FashLink.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,20 +12,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class CustomerService {
 
-    private UserRepository userRepository;
-
-    private PasswordEncoder passwordEncoder;
-
+    private final UserRepository customerRepository;
+    private final PasswordEncoder passwordEncoder;
     private Cloudinary cloudinary;
 
+    public List<Users> findAll() {
+        return customerRepository.findAll();
+    }
+
+    public Users findById(String id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+    }
 
     public String uploadProfilePicture(MultipartFile file) throws IOException {
         // Convert the MultipartFile to a byte array
@@ -43,7 +47,6 @@ public class UserService {
         // Extract and return the uploaded file's URL
         return (String) uploadResult.get("secure_url");
     }
-
 
     public void registerUser(UserRegistrationDTO registrationDTO, MultipartFile profilePicture) throws IOException {
         Users users = new Users();
@@ -75,11 +78,11 @@ public class UserService {
         }
 
 
-        userRepository.save(users);
+        customerRepository.save(users);
     }
 
     public boolean emailExists(String email) {
-        return userRepository.findByEmail(email).isPresent();
+        return customerRepository.findByEmail(email).isPresent();
     }
 
     // Get logged-in user
@@ -118,4 +121,20 @@ public class UserService {
         }
         return null; // No authenticated user
     }
+
+
+//    public void updateCustomer(String id, CustomerDTO customerDTO) {
+//        Customer customer = findById(id);
+//        customer.setName(customerDTO.getName());
+//        customer.setEmail(customerDTO.getEmail());
+//        if (!customerDTO.getPassword().isBlank()) {
+//            customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
+//        }
+//        customer.setRole(customerDTO.getRole());
+//        customerRepository.save(customer);
+//    }
+//
+//    public void deleteCustomer(String id) {
+//        customerRepository.deleteById(id);
+//    }
 }

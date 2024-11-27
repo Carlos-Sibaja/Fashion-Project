@@ -219,5 +219,99 @@ header, nav {
     opacity: 0.5;
 }
 
+/* ADMIN page*/
+
+/* Admin container*/
+.admin_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.admin_container_block {
+    justify-content: center;
+    border: 3px solid #e4d7cb;
+    border-radius: 15px;
+    width: 60%;
+    padding: 10px;
+}
+
+.admin_first_row, .admin_second_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 10px;
+    height: 180px;
+}
+
+.admin_container_block_header h1, p{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.admin_container_block_options {
+    height: 400px;
+}
+
+/* General styling for admin links with images */
+.admin_first_row a, .admin_second_row a {
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 10px;
+    color: darkslategray;
+    border: 1px solid #dcdcdc;
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin_first_row a img, .admin_second_row a img {
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.admin_first_row a:hover, .admin_second_row a:hover{
+    background: #e4d7cb;
+}
+
+.admin_first_row a img:hover, .admin_second_row a img:hover{
+    background: #e4d7cb;
+    width: 90px;
+    height: 90px;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Form styles */
+form {
+    margin-bottom: 20px;
+}
+
+form input, form select, form button {
+    margin: 5px;
+    padding: 8px;
+}
+
 
 

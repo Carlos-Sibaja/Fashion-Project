@@ -7,12 +7,11 @@
 </head>
 <body>
 <header>
-    <div class="header_container">
-        <div class="login">
-            <!-- Visible only when user is authenticated -->
-            <span th:if="${loggedInUser != null}">
+    <div class="admin_header_container">
+        <!-- Visible only when user is authenticated -->
+        <span th:if="${loggedInUser != null}">
                 <div class="logout_form">
-                    <span>Welcome, <span th:text="${loggedInUser}">User</span>!</span>
+                    <span>Welcome, <span th:text="${loggedInUser}">Admin</span>!</span>
                 <form th:action="@{/logout}" method="post" class="logout-form">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <button type="submit" class="logout-button">Logout</button>
@@ -21,12 +20,11 @@
                 </div>
             </span>
 
-            <!-- Visible only when user is not authenticated -->
-            <span th:if="${loggedInUser == null}">
+        <!-- Visible only when user is not authenticated -->
+        <span th:if="${loggedInUser == null}">
                 <a th:href="@{/login}">Login</a>
                 <a th:href="@{/sign_up}">Sign Up</a>
             </span>
-        </div>
     </div>
 </header>
 <nav>
@@ -36,5 +34,49 @@
         </div>
     </div>
 </nav>
+
+<div class="admin_container">
+    <div class="admin_container_block">
+        <div class="admin_container_block_header">
+            <h1>Admin Dashboard</h1>
+            <p>Welcome to the admin dashboard. Here you can manage all the data in the system.</p>
+        </div>
+        <div class="admin_container_block_options">
+            <div class="admin_first_row">
+                <a th:href="@{/admin/customers}">
+                    <img src="/images/admin/customers.png" alt="Customers" />
+                    Customers
+                </a>
+                <a th:href="@{/admin/advisors}">
+                    <img src="/images/admin/advisors.png" alt="Advisors" />
+                    Advisors
+                </a>
+                <a th:href="@{/admin/bookings}">
+                    <img src="/images/admin/bookings.png" alt="Bookings" />
+                    Bookings
+                </a>
+            </div>
+            <div class="admin_second_row">
+                <a th:href="@{/admin/messages}">
+                    <img src="/images/admin/messages.png" alt="Messages" />
+                    Messages
+                </a>
+                <a th:href="@{/admin/fashion_tips}">
+                    <img src="/images/admin/tips.png" alt="Tips" />
+                    Fashion Tips
+                </a>
+                <a th:href="@{/admin/fashion_advice}">
+                    <img src="/images/admin/advice.png" alt="Advice" />
+                    Fashion Advice
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<footer>
+    <div class="footer_container">
+        <p>&copy; FashLink 2024. All rights reserved</p>
+    </div>
+</footer>
 </html>
