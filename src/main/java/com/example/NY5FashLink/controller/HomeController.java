@@ -29,4 +29,20 @@ public class HomeController {
 
         return "index";
     }
+
+    @GetMapping("/success")
+    public String homeSuccess(Model model) {
+        String loggedInUser = userService.getLoggedInUserFirstName();
+        String loggedInUserEmail = userService.getLoggedInUserEmail();
+
+        if (loggedInUser != null) {
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("loggedInUserEmail", loggedInUserEmail);
+        } else {
+            model.addAttribute("loggedInUser", null);
+            model.addAttribute("loggedInUserEmail", null);
+        }
+
+        return "index";
+    }
 }

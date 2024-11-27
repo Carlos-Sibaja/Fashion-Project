@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <title>Admin</title>
+</head>
+<body>
+<header>
+    <div class="header_container">
+        <div class="login">
+            <!-- Visible only when user is authenticated -->
+            <span th:if="${loggedInUser != null}">
+                <div class="logout_form">
+                    <span>Welcome, <span th:text="${loggedInUser}">User</span>!</span>
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <button type="submit" class="logout-button">Logout</button>
+                    <input type="hidden" th:value="${loggedInUserEmail}"/>
+                </form>
+                </div>
+            </span>
+
+            <!-- Visible only when user is not authenticated -->
+            <span th:if="${loggedInUser == null}">
+                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/sign_up}">Sign Up</a>
+            </span>
+        </div>
+    </div>
+</header>
+<nav>
+    <div class="nav_container">
+        <div class="logo">
+            <img src="/images/fashlink_logo.png">
+        </div>
+    </div>
+</nav>
+</body>
+</html>
