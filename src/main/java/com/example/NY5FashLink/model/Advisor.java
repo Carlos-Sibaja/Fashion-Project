@@ -29,4 +29,6 @@ public class Advisor extends Users {
     @Field(value = "advisor.availability")
     private List<String> availability;
 
+    // No-arg constructor
+    public Advisor() {}
 }

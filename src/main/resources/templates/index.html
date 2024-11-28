@@ -16,6 +16,7 @@
                 <form th:action="@{/logout}" method="post" class="logout-form">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <button type="submit" class="logout-button">Logout</button>
+                    <input type="hidden" th:value="${loggedInUserEmail}"/>
                 </form>
                 </div>
             </span>
@@ -37,7 +38,7 @@
             <a th:href="@{/}">HOME</a>
             <a th:href="@{/advisors}">ADVISORS</a>
             <a th:href="@{/fashion}">FASHION</a>
-            <a th:href="@{/my_profile}">MY PROFILE</a>
+            <a th:href="@{/booking/my_profile}">MY PROFILE</a>
             <a th:href="@{/messages}">MESSAGES</a>
         </div>
     </div>

@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.Date;
 
 @Document(collection = "transactions")
+@Getter
+@Setter
 public class Transaction {
     @Id
     private String id;

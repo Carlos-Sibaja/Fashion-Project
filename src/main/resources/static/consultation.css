@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+body{
+    width: 95%;
+    margin: auto;
+    max-width: 1280px;
+    min-width: 920px;
+}
+.banner-text {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 5px;
+
+    background-color: #e6c7bd;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+button{
+    cursor: pointer;
+    border: 0px;
+    background-color: #f6f4f3;
+    margin-top: 30px;
+}
+#local-stream, #remote-stream {
+    width: 40%;
+    height: 500px;
+    border: 1px solid black;
+    margin: 20px;
+}
+div#videocall{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+div#video-left{
+    width: 45%;
+    height: 400px;
+    border: 2px solid #d1c8c1;
+    flex: 1;
+    text-align: left;
+
+    margin-right: 10px;
+}
+div#video-left p{
+    padding: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+div#video-right{
+    width: 45%;
+    height: 400px;
+    border: 2px solid #d1c8c1;
+    flex: 1;
+    text-align: right;
+    margin-left: 10px;
+}
+div#video-right p{
+    padding: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+div[id^="local-player"], div[id^="player"] {
+    width: 600px;
+    height: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+/*#join-form {*/
+/*    margin-top: 10px;*/
+/*}*/
+/*.join-info-text {*/
+/*    margin-bottom: 2px;*/
+/*}*/
+
+/*input {*/
+/*    width: 100%;*/
+/*    margin-bottom: 2px;*/
+/*}*/
+
+
+
+/*.player-name {*/
+/*    margin: 8px 0;*/
+/*}*/
+
+/*#success-alert, #success-alert-with-token {*/
+/*    display: none;*/
+/*}*/
+
+@media (max-width: 640px) {
+    .player {
+        width: 320px;
+        height: 240px;
+    }
+}
