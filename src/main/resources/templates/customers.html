@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <title>Customer Management</title>
+</head>
+<body>
+<nav>
+  <div class="nav_container">
+    <div class="logo">
+      <img src="/images/fashlink_logo.png">
+    </div>
+  </div>
+</nav>
+
+<div class="admin_container_block">
+  <h2>Customer Management</h2>
+
+  <form th:action="@{/admin/customers}" th:object="${customers}" method="post" enctype="multipart/form-data">
+    <h3>Create New Customer</h3>
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="text" name="lastname" placeholder="Lastname" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="number" name="phone" placeholder="Phone" />
+    <select name="gender" required>
+      <option value="MALE">Male</option>
+      <option value="FEMALE">Female</option>
+    </select>
+    <input type="date" name="dob" placeholder="Date of Birth" min="1900-01-01" max="2004-12-31" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <select name="role" required>
+      <option value="CUSTOMER">Customer</option>
+      <option value="ADVISOR">Advisor</option>
+      <option value="STORE">Store</option>
+    </select>
+    <input type="file" name="profilePicture" id="profilePicture" accept="image/*">
+
+    <button type="submit">Add Customer</button>
+  </form>
+</div>
+</body>
+</html>

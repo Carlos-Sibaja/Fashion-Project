@@ -21,12 +21,16 @@ public class AdvisorController {
 
     // Map root path /advisors to serve advisors.html
     @GetMapping
-    public String viewAdvisors(Model model) {
+    public String viewAdvisors(@SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
+                               @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
+                               Model model) {
         // Fetch all advisors
         List<Advisor> advisors = getFilteredAdvisors(null,null,null,null,null);
 
         // Add advisors to the model
         model.addAttribute("advisors", advisors);
+        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("loggedInUserEmail", loggedInUserEmail);
         return "advisors";  // Return the advisors.html view
     }
 
@@ -42,13 +46,14 @@ public class AdvisorController {
     }
 
     @PostMapping("/filter")
-    public String filterAdvisors(
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String availability,
-            @RequestParam(required = false) Double minCost,
-            @RequestParam(required = false) Double maxCost,
-            @RequestParam(required = false) String name,
-            Model model) {
+    public String filterAdvisors(   @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
+                                    @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
+                                    @RequestParam(required = false) String category,
+                                    @RequestParam(required = false) String availability,
+                                    @RequestParam(required = false) Double minCost,
+                                    @RequestParam(required = false) Double maxCost,
+                                    @RequestParam(required = false) String name,
+                                    Model model) {
 
         category = category.toUpperCase();
         category = category.replace("_", " ");
@@ -61,15 +66,23 @@ public class AdvisorController {
         model.addAttribute("selectedName", name);
         model.addAttribute("advisors", advisors);
 
+        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("loggedInUserEmail", loggedInUserEmail);
+
         return "advisors"; // Return the view name to render the advisors page
     }
 
     // Redirect to booking page according to advisor's ID
     @GetMapping("/book/{id}")
-    public String viewBookingPage(@PathVariable("id") String advisorId, Model model) {
+    public String viewBookingPage(@PathVariable("id") String advisorId,
+                                  @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
+                                  @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
+                                  Model model) {
 
         Advisor advisor = advisorService.findById(advisorId);
         model.addAttribute("advisor", advisor);
+        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("loggedInUserEmail", loggedInUserEmail);
 
         // Debugging: print the result to see if it's found
         if (advisor != null) {
@@ -80,6 +93,7 @@ public class AdvisorController {
 
         return "booking";
     }
+
 
 }
 

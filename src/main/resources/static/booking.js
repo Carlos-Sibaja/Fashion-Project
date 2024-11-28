@@ -44,11 +44,12 @@ function populateTimeOptions() {
     for (let hour = 7; hour <= 20; hour++) {
         for (let minute = 0; minute < 60; minute += 60) { // Increment by 60 minutes
 
+            //if date is today, show next slot time
+            //otherwise, show the first slot time
             let isPast = false;
             if (nowDate === selectedDate) {
                 isPast = hour < currentHour || (hour === currentHour && minute <= currentMinute);
             }
-
 
             // Skip past times
             if (isPast) continue;
