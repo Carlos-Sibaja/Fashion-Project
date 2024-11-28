@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GENERAL SETTINGS - ALL PAGES */
+body{
+    width: 95%;
+    margin: auto;
+
+    font-family: Geneva, Arial, Helvetica, Tahoma, Verdana, sans-serif;
+    background-color: #f6f4f3;
+    color: rgb(77, 77, 77);
+
+    display: block;
+}
+
+/* INDEX.HTML */
+/* <header> and <nav> */
+
+header, nav {
+    padding: 20px 40px 10px 40px;
+}
+
+.header_container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout_form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout_form button{
+    border: none;
+    color: darkslategray;
+    background-color: #f6f4f3;
+    font-size: 16px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.login a {
+    color: darkslategray;
+    text-decoration: none;
+    font-size: 15px;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.menu a {
+    color: darkslategray;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 15px;
+    margin-right: 40px;
+}
+
+.login a:hover, .menu a:hover, .logout_form button:hover {
+    color: darkgoldenrod;
+}
+
+.nav_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 70px;
+    padding-top: 40px;
+}
+
+/* <main> */
+
+/* container 1 (top image and text) */
+.img_text_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 30px 100px 15px 100px;
+}
+
+.img_text_container_col1, .img_text_container_col2 {
+    background-color: #e4d7cb;
+    height: 400px;
+}
+
+.img_text_container_col2 p {
+    text-align: end;
+    font-size: 40px;
+    margin: 80px 30px 30px 30px;
+    word-spacing: 30px;
+    color: darkgoldenrod;
+}
+
+.img_text_container_col2 a {
+    text-decoration: none;
+    color: darkgoldenrod;
+    text-align: end;
+    font-size: 30px;
+    word-spacing: 0;
+}
+
+.img_text_container_col2 a:hover {
+    color: goldenrod;
+    font-size: 30px;
+}
+
+/* container 2 (text, button and images) */
+.img_text_container2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    margin: 30px 100px 15px 100px;
+    column-gap: 30px;
+}
+
+.img_text_container2_col1, .img_text_container2_col2, .img_text_container2_col3, .img_text_container2_col3  {
+    height: 250px;
+}
+
+.img_text_container2_col1 p {
+    font-size: 20px;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button_container button {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    background-color: #e4d7cb;
+    cursor: pointer;
+}
+
+.button_container button:hover {
+    opacity: 0.5;
+}
+
+/* footer */
+.footer_container {
+    text-align: center;
+    background-color: #e4d7cb;
+    font-size: 17px;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    margin-top: 70px;
+}
+
+/* SIGN_UP.HTML */
+
+.logo_sign_up_container a {
+    text-decoration: none;
+    color: black;
+}
+
+.sign_up_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.sign_up_form_container {
+    display: flex;
+    justify-content: center;
+    border: 3px solid #e4d7cb;
+    border-radius: 15px;
+    width: 30%;
+    padding: 10px;
+}
+
+.h2_sign_up {
+    width: 100%;
+    text-align: left;
+    color: darkgoldenrod;
+}
+
+.sign_up_form_container form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign_up_form_container label{
+    display: block;
+    width: 100%;
+    margin: 15px 0 5px;
+    text-align: left;
+}
+
+.sign_up_form_container input {
+    width: 90%;
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.button_sign_up button{
+    width: 200px;
+    color: white;
+    background-color: #e4d7cb;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.button_sign_up button:active {
+    opacity: 0.5;
+}
+
+
+

@@ -2,12 +2,11 @@ package com.example.NY5FashLink.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Data
 public class BookingWithAdvisor {
+    private String id;
     private String advisorId;
     private String customerEmail;
 

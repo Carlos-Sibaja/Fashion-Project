@@ -60,6 +60,7 @@ public class BookingService {
 
                 // Project the required fields
                 Aggregation.project()
+                        .and("booking._id").as("id")
                         .and("booking.customerEmail").as("customerEmail")
                         .and("advisorDetails._id").as("advisorId")
                         .and("advisorDetails.name").as("firstName")
