@@ -96,3 +96,11 @@ function populateTimeOptions() {
 // Run above functions when the page loads
 todayDate();
 populateTimeOptions();
+
+bookingStatus = document.getElementById("bookingStatus").value
+bookingDate = document.getElementById("bookingDate").value
+bookingTime = document.getElementById("bookingTime").value
+if (bookingStatus == "RESCHEDULED"){
+    document.getElementById('date').value = bookingDate
+    document.getElementById('time').value = bookingTime
+}

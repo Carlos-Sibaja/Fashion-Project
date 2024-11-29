@@ -9,7 +9,7 @@ body{
 main{
     padding-left: 50px;
 }
-div#next-consultation{
+div.next-consultation{
     width: 95%;
     background-color: #e6c7bd;
     padding: 10px;

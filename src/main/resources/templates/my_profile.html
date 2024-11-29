@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/adv_styles.css}"/>
     <link rel="stylesheet" th:href="@{/my_profile.css}"/>
-    <script th:src="@{/my_profile.js}" defer></script>
     <title>NY5th FashLink</title>
   </head>
   <body>
@@ -50,37 +49,45 @@
       </div>
 
       <!--NEXT CONSULTATION-->
-      <div id="next-consultation">
-        <table id="table-next-cons">
+      <div th:if="${bookings != null and bookings.size() > 0}">
+        <div class="next-consultation">
+          <table id="table-next-cons">
 
-          <!--1st line: Picture + Categories + Date/Time + button-->
-          <tr>
-            <td class="next-cons-picture" rowspan="4"><img th:src="${bookings.get(0).getUrlPicture()}" alt="advisor picture"></td>
-            <td>
-              <table class="next-consultation">
-                <tr><td class="title" colspan="3" >Next Consultation:</td></tr>
-                <tr><td class="categories" th:text="${#strings.replace(bookings.get(0).getCategories(), '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td></tr>
-              </table>
-            </td>
-            <td class="btn-adv1" rowspan="4">
-              <p th:text="${bookings.get(0).getFormattedDateTime}">Schedule</p>
-              <!--FORM-->
-              <form action="/consultation" id="frmEnterConsultation" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <input type="hidden" id="booking_id" name="booking_id" th:value="${bookings.get(0).getId()}"/>
-                <input type="hidden" id="advisor_name" name="advisor_name" th:value="${bookings.get(0).getFirstName() + ' ' + bookings.get(0).getLastName().charAt(0) + '.'}"/>
-                <button id="btn_consultation" type="submit">
-                  <img src="/images/adv_btn_enterconsultation.png" alt="enter consultation">
-                </button>
-              </form>
-            </td>
-          </tr>
+            <!--1st line: Picture + Categories + Date/Time + button-->
+            <tr>
+              <td class="next-cons-picture" rowspan="4"><img th:src="${bookings.get(0).getUrlPicture()}" alt="advisor picture"></td>
+              <td>
+                <table class="next-consultation">
+                  <tr><td class="title" colspan="3" >Next Consultation:</td></tr>
+                  <tr><td class="categories" th:text="${#strings.replace(bookings.get(0).getCategories(), '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td></tr>
+                </table>
+              </td>
+              <td class="btn-adv1" rowspan="4">
+                <p th:text="${bookings.get(0).getFormattedDateTime}">Schedule</p>
+                <!--FORM-->
+                <form action="/consultation" id="frmEnterConsultation" method="post">
+                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                  <input type="hidden" id="booking_id" name="booking_id" th:value="${bookings.get(0).getId()}"/>
+                  <input type="hidden" id="advisor_name" name="advisor_name" th:value="${bookings.get(0).getFirstName() + ' ' + bookings.get(0).getLastName().charAt(0) + '.'}"/>
+                  <button id="btn_consultation" type="submit">
+                    <img src="/images/adv_btn_enterconsultation.png" alt="enter consultation">
+                  </button>
+                </form>
+              </td>
+            </tr>
 
-          <!--2nd line: Advisor's name-->
-          <tr>
-            <td class="advName" th:text="${bookings.get(0).getFirstName() + ' ' + bookings.get(0).getLastName().charAt(0) + '.'}" colspan="3">First Name</td>
-          </tr>
-        </table>
+            <!--2nd line: Advisor's name-->
+            <tr>
+              <td class="advName" th:text="${bookings.get(0).getFirstName() + ' ' + bookings.get(0).getLastName().charAt(0) + '.'}" colspan="3">First Name</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div th:if="${bookings[0] == null or bookings.size() == 0}" class="next-consultation">
+        <div class="next-consultation">
+          <p>No booking found.</p>
+        </div>
       </div>
 
       <h1>Upcoming Consultations</h1>
@@ -93,20 +100,35 @@
             <td class="categories-upc" th:text="${#strings.replace(booking.categories, '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td>
             <td class="btn-adv1" rowspan="4">
               <p th:text="${booking.formattedDateTime}">Schedule</p>
-              <!--FORM-->
-              <form action="/reschedule" id="frmRescheduleConsultation" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <button class="upc-btn-resched" type="submit">
-                  <img src="/images/adv_btn_reschedule.png" alt="schedule">
+
+              <!-- NEW BOOKING -->
+              <div th:if="${booking.status == 'NEW'}">
+                <button class="upc-btn-resched">
+                  <a th:href="@{/advisors/book/{advisorId}/{bookingId}(advisorId=${booking.advisorId}, bookingId=${booking.id})}">
+                    <img src="/images/adv_btn_reschedule.png"/>
+                  </a>
                 </button>
-              </form>
-              <!--FORM-->
-              <form action="/cancel" id="frmCancelConsultation" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <button class="upc-btn-cancel" type="submit">
-                  <img src="/images/adv_btn_cancel.png" alt="cancel">
-                </button>
-              </form>
+
+                <!--FORM - CANCELLING THE CONSULTATION-->
+                <form action="/consultation/cancel" id="frmCancelConsultation" method="post" onsubmit="return confirmCancellation();">
+                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                  <input type="hidden" id="booking_idCancel" name="booking_id" th:value="${booking.id}" />
+                  <button class="upc-btn-cancel" type="submit">
+                    <img src="/images/adv_btn_cancel.png" alt="cancel">
+                  </button>
+                </form>
+
+                <script>
+                  function confirmCancellation() {
+                    return confirm("Are you sure you want to cancel this booking?");
+                  }
+                </script>
+              </div>
+
+              <!-- CANCELLED CONSULTATIONS -->
+              <div th:if="${booking.status == 'CANCELLED'}">
+                <img src="/images/adv_sign_cancelled.png" alt="sign_cancel">
+              </div>
             </td>
           </tr>
 

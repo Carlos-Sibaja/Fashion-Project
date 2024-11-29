@@ -15,6 +15,7 @@ public class BookingWithAdvisor {
 
     private String date;
     private String time;
+    private String status;
     private String formattedDateTime;
     private double consultationCost;
 

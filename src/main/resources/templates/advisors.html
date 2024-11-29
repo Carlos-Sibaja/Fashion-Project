@@ -129,7 +129,7 @@
             </td>
             <td id="cost" class="line1" th:text="${'US$ ' + advisor.consultationCost}">Cost</td>
             <td class="btn-adv1" rowspan="4">
-              <p><a th:href="@{/advisors/book/{id}(id=${advisor.id})}"><img src="/images/adv_btn_schedule.png"/></a></p>
+              <p><a th:href="@{/advisors/book/{advisorId}(advisorId=${advisor.id})}"><img src="/images/adv_btn_schedule.png"/></a></p>
               <p><a th:href="@{/messages}"><img src="/images/adv_btn_sendmsg.png"/></a></p>
             </td>
           </tr>

@@ -1,7 +1,9 @@
 package com.example.NY5FashLink.controller;
 
 import com.example.NY5FashLink.model.Advisor;
+import com.example.NY5FashLink.model.BookingWithAdvisor;
 import com.example.NY5FashLink.service.AdvisorService;
+import com.example.NY5FashLink.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,12 @@ public class AdvisorController {
 
     @Autowired
     private AdvisorService advisorService;
+    @Autowired
+    private BookingService bookingService;
 
-    public AdvisorController(AdvisorService advisorService) {
+    public AdvisorController(AdvisorService advisorService, BookingService bookingService) {
         this.advisorService = advisorService;
+        this.bookingService = bookingService;
     }
 
     // Map root path /advisors to serve advisors.html
@@ -34,6 +39,7 @@ public class AdvisorController {
         return "advisors";  // Return the advisors.html view
     }
 
+    // When you click on Advisors menu
     @GetMapping("/filter")
     public List<Advisor> getFilteredAdvisors(
             @RequestParam(required = false) String category,
@@ -45,6 +51,7 @@ public class AdvisorController {
         return advisorService.findAdvisors(category, availability, minCost, maxCost, name);
     }
 
+    // Filter advisor's list according to the filter
     @PostMapping("/filter")
     public String filterAdvisors(   @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
                                     @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
@@ -72,27 +79,71 @@ public class AdvisorController {
         return "advisors"; // Return the view name to render the advisors page
     }
 
-    // Redirect to booking page according to advisor's ID
-    @GetMapping("/book/{id}")
-    public String viewBookingPage(@PathVariable("id") String advisorId,
-                                  @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
-                                  @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
-                                  Model model) {
+    // Booking a new appointment - Advisor and Customer
+    @GetMapping("/book/{advisorId}")
+    public String createNewBooking( @PathVariable("advisorId") String advisorId,
+                                    @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
+                                    @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
+                                    Model model) {
+
+        System.out.println("Booking a new appointment - Advisor and Customer");
+        System.out.println(advisorId);
 
         Advisor advisor = advisorService.findById(advisorId);
+        String bookingStatus = "NEW";
+
         model.addAttribute("advisor", advisor);
+        model.addAttribute("bookingStatus", bookingStatus);
         model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("loggedInUserEmail", loggedInUserEmail);
 
-        // Debugging: print the result to see if it's found
         if (advisor != null) {
             System.out.println("Advisor found: " + advisor);
+            System.out.println(bookingStatus);
         } else {
             System.out.println("No advisor found with ID: " + advisorId);
         }
 
         return "booking";
     }
+
+    // Rescheduling an existing appointment - Advisor and Customer
+    @GetMapping("/book/{advisorId}/{bookingId}")
+    public String reschedulingBooking(  @PathVariable("advisorId") String advisorId,
+                                        @PathVariable("bookingId") String bookingId,
+                                        @SessionAttribute(value = "loggedInUser", required = false) String loggedInUser,
+                                        @SessionAttribute(value = "loggedInUserEmail", required = false) String loggedInUserEmail,
+                                        Model model) {
+
+        System.out.println("Rescheduling an existing appointment - Advisor and Customer");
+        System.out.println(advisorId);
+        System.out.println(bookingId);
+
+        Advisor advisor = advisorService.findById(advisorId);
+        BookingWithAdvisor booking = bookingService.getSpecificBooking(bookingId);
+        String bookingStatus = "RESCHEDULED";
+
+        model.addAttribute("advisor", advisor);
+        model.addAttribute("booking", booking);
+        model.addAttribute("bookingStatus", bookingStatus);
+        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("loggedInUserEmail", loggedInUserEmail);
+
+        if (advisor != null) {
+            System.out.println("Advisor found: " + advisor);
+        } else {
+            System.out.println("No advisor found with ID: " + advisorId);
+        }
+
+        if (booking != null) {
+            System.out.println("Booking found: " + booking);
+        } else {
+            System.out.println("No booking found with ID: " + bookingId);
+        }
+
+        return "booking";
+    }
+
 
 
 }

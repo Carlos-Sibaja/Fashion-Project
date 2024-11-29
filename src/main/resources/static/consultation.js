@@ -101,6 +101,11 @@ async function leave() {
     $("#join").attr("disabled", false);
     $("#leave").attr("disabled", true);
     console.log("client leaves channel success");
+
+    let urlStr = "/consultation/complete/";
+    urlStr = urlStr + document.getElementById("bookingID").value;
+
+    window.location.assign(urlStr);
 }
 
 async function subscribe(user, mediaType) {

@@ -63,9 +63,16 @@
                     <td id="picture" rowspan="4"><img th:src="${advisor.urlPicture}" alt="advisor picture"></td>
                     <td id="categories" class="line1" th:text="${#strings.replace(advisor.categories, '[', '').replace(']', '').replace(',', '  |  ')}">Categories</td>
                     <td class="btn-adv1" rowspan="4">
-                        <button type="submit">
-                            <img src="/images/adv_btn_schedule.png" alt="schedule">
-                        </button>
+                        <div th:if="${bookingStatus == 'NEW'}">
+                            <button type="submit">
+                                <img src="/images/adv_btn_schedule.png" alt="schedule">
+                            </button>
+                        </div>
+                        <div th:if="${bookingStatus == 'RESCHEDULED'}">
+                            <button type="submit">
+                                <img src="/images/adv_btn_reschedule.png" alt="reschedule">
+                            </button>
+                        </div>
                     </td>
                 </tr>
 
@@ -86,6 +93,9 @@
                             <!--Date-->
                             <div class="combobox">
                                 <p>Date</p>
+                                <input type="hidden" id="bookingStatus" th:value="${bookingStatus}">
+                                <input type="hidden" id="bookingDate" th:value="${booking.date}">
+                                <input type="hidden" id="bookingTime" th:value="${booking.time}">
                                 <input type="date" name="date" id="date" required onchange="populateTimeOptions()">
                             </div>
 

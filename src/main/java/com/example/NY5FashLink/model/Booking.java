@@ -4,6 +4,9 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Document(collection = "transactions")
 @Data
 public class Booking extends Transaction{
@@ -21,6 +24,14 @@ public class Booking extends Transaction{
     private Double bookingConsultationCost;
     @Field(value = "booking.notes")
     private String notes;
+    @Field(value = "booking.bookingUpdDateTime")
+    private LocalDateTime bookingUpdDateTime;
+    @Field(value = "feedback.ratingStars")
+    private LocalDateTime feedbackRatingStars;
+    @Field(value = "feedback.review")
+    private List<String> feedbackReview;
+    @Field(value = "feedback.message")
+    private LocalDateTime feedbackMessage;
 
     // No-arg constructor
     public Booking() {}
