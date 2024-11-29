@@ -90,10 +90,13 @@ public class AdvisorController {
         System.out.println(advisorId);
 
         Advisor advisor = advisorService.findById(advisorId);
+        BookingWithAdvisor booking = bookingService.getSpecificBooking("000000000000000000000000"); //there is no booking, but we need one at HTML file
+
         String bookingStatus = "NEW";
 
         model.addAttribute("advisor", advisor);
         model.addAttribute("bookingStatus", bookingStatus);
+        model.addAttribute("booking", booking);
         model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("loggedInUserEmail", loggedInUserEmail);
 

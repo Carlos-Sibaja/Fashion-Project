@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +27,12 @@ public class BookingService {
 
     public List<BookingWithAdvisor> getBookingsWithAdvisors(String loggedInUserEmail) {
         System.out.println(loggedInUserEmail);
+
+        // Get the current date and time
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+        String todayString = today.toString();
+        String nowString = now.toString();
 
         Aggregation aggregation = Aggregation.newAggregation(
                 // Filter transactions by customer email
@@ -47,6 +55,95 @@ public class BookingService {
                                 )
                         )
                         .build(),
+
+                // Filter by bookingStatus and datetime
+                Aggregation.match(Criteria
+                        .where("booking.bookingStatus").in("NEW", "CANCELLED") // Match NEW or CANCELLED statuses
+//                        .andOperator(
+//                                Criteria.where("booking.bookingDate").gte(todayString), // Date >= today
+//                                Criteria.where("booking.bookingTime").gte(nowString)  // Time >= now
+//                        )
+                ),
+
+                // Perform a lookup to join with the 'users' collection
+                Aggregation.lookup("users", "advisorIdAsObjectId", "_id", "advisorDetails"),
+
+                // Unwind the advisorDetails array
+                Aggregation.unwind("advisorDetails", true),
+
+                // Sort by the combined datetime field
+                Aggregation.sort(Sort.by(Sort.Direction.ASC, "bookingDateTime")),
+
+                // Project the required fields
+                Aggregation.project()
+                        .and("booking._id").as("id")
+                        .and("booking.customerEmail").as("customerEmail")
+                        .and("advisorDetails._id").as("advisorId")
+                        .and("advisorDetails.name").as("firstName")
+                        .and("advisorDetails.lastname").as("lastName")
+                        .and("booking.bookingDate").as("date")
+                        .and("booking.bookingTime").as("time")
+                        .and("booking.bookingStatus").as("status")
+                        .and("booking.consultationCost").as("consultationCost")
+                        .and("booking.bookingStatus").as("bookingStatus")
+                        .and("advisorDetails.advisor.urlPicture").as("urlPicture")
+                        .and("advisorDetails.advisor.categories").as("categories")
+                        .and("advisorDetails.advisor.numberReviews").as("numberReviews")
+                        .and("advisorDetails.advisor.activeClients").as("activeClients")
+                        .and("advisorDetails.advisor.numberConsultations").as("numberConsultations")
+                        .and("advisorDetails.advisor.rating").as("rating")
+                        .and("advisorDetails.advisor.profile").as("profile")
+                        .and("advisorDetails.advisor.availability").as("availability")
+        );
+
+        // Execute the aggregation query
+        List<BookingWithAdvisor> results = mongoTemplate.aggregate(aggregation, "transactions", BookingWithAdvisor.class).getMappedResults();
+
+        // Print the results to check
+        System.out.println("Aggregation Results: " + results);
+
+        return results;
+    }
+
+    public List<BookingWithAdvisor> getNextBookingWithAdvisors(String loggedInUserEmail) {
+        System.out.println("getNextBookingWithAdvisors sub-routine");
+
+        // Get the current date and time
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+        String todayString = today.toString();
+        String nowString = now.toString();
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                // Filter transactions by customer email
+                Aggregation.match(Criteria.where("booking.customerEmail").is(loggedInUserEmail)),
+
+                // Convert advisorId from String to ObjectId using $toObjectId operator directly
+                Aggregation.addFields()
+                        .addField("advisorIdAsObjectId").withValue(
+                                new Document("$toObjectId", "$booking.advisorId")
+                        )
+                        .build(),
+
+                // Create a combined datetime field
+                Aggregation.addFields()
+                        .addField("bookingDateTime").withValue(
+                                new Document("$dateFromString",
+                                        new Document("dateString",
+                                                new Document("$concat", Arrays.asList("$booking.bookingDate", "T", "$booking.bookingTime"))
+                                        )
+                                )
+                        )
+                        .build(),
+
+                // Filter by bookingStatus and datetime
+                Aggregation.match(Criteria
+                        .where("booking.bookingStatus").in("NEW") // Match NEW or CANCELLED statuses
+//                        .andOperator(
+//                                Criteria.where("booking.bookingDate").gte(todayString), // Date >= today
+//                                Criteria.where("booking.bookingTime").gte(nowString)  // Time >= now
+//                        )
+                ),
 
                 // Perform a lookup to join with the 'users' collection
                 Aggregation.lookup("users", "advisorIdAsObjectId", "_id", "advisorDetails"),

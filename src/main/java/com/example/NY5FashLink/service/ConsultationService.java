@@ -51,6 +51,8 @@ public class ConsultationService {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(objectId));
 
+        System.out.println("Reschedule to: " + rescheduleDate + " " + rescheduleTime);
+
         // Define the fields which will be updated
         Update update = new Update()
                 .set("booking.bookingDate", rescheduleDate)

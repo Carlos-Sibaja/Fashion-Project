@@ -90,8 +90,27 @@ function populateTimeOptions() {
     if (!availability.includes("EVENING")) {
         eveningGroup.style.display = "none";
     }
+
+    updateTime();
 }
 
+// JavaScript to change form action based on booking status
+function changeFormAction() {
+    var bookingStatus = document.getElementById('bookingStatus').value;  // Get the bookingStatus from hidden input
+    var form = document.getElementById('frmBooking');
+
+    if (bookingStatus === 'RESCHEDULED') {
+        form.action = "/consultation/reschedule";
+    } else {
+        form.action = "/booking";
+    }
+    console.log('Form action:', form.action);  // Check if the action is set correctly
+}
+
+function updateTime(){
+    document.getElementById("bookingDate").value =  document.getElementById('date').value;
+    document.getElementById("bookingTime").value =  document.getElementById('time').value;
+}
 
 // Run above functions when the page loads
 todayDate();
