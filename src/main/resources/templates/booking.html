@@ -61,8 +61,8 @@
                     <input type="hidden" id="id" name="id" th:value="${advisor.id}"/>
                     <input type="hidden" id="booking_id" name="booking_id" th:value="${booking?.id}"/>
                     <input type="hidden" id="bookingStatus" name="booking_status" th:value="${bookingStatus}">
-                    <input type="text" id="bookingDate" name="booking_date" th:value="${booking?.getDate()}">
-                    <input type="text" id="bookingTime" name="booking_time" th:value="${booking?.getTime()}">
+                    <input type="hidden" id="bookingDate" name="booking_date" th:value="${booking?.getDate()}">
+                    <input type="hidden" id="bookingTime" name="booking_time" th:value="${booking?.getTime()}">
 
                     <input type="hidden" id="consultationCost" name="consultationCost" th:value="${advisor.consultationCost}"/>
                     <td id="picture" rowspan="4"><img th:src="${advisor.urlPicture}" alt="advisor picture"></td>

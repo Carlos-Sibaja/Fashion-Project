@@ -2,11 +2,169 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/adv_styles.css}"/>
-    <link rel="stylesheet" th:href="@{/index.css}"/>
+    <link rel="stylesheet" href="/static/adv_styles.css"/>
+    <link rel="stylesheet" href="/static/index.css"/>
     <title>NY5th FashLink</title>
+    <style>
+        body{
+            width: 95%;
+            margin: auto;
+            max-width: 1280px;
+            min-width: 920px;
+
+            font-family: Geneva, Arial, Helvetica, Tahoma, Verdana, sans-serif;
+            background-color: #f6f4f3;
+            color: rgb(77, 77, 77);
+
+            display: block;
+        }
+        .img_text_container_col1, .img_text_container_col2 {
+            background-color: #e4d7cb;
+            height: 400px;
+        }
+        .img_text_container_col1 > a> img{
+            margin: auto;
+            width: 100%;
+            height: 100%;
+        }
+        .img_text_container_col2 p {
+            text-align: end;
+            font-size: 40px;
+            margin: 80px 30px 30px 30px;
+            word-spacing: 30px;
+            color: darkgoldenrod;
+        }
+        /* container 2 (text, button and images) */
+        .img_text_container2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            column-gap: 30px;
+        }
+        .img_text_container2_col1, .img_text_container2_col2, .img_text_container2_col3, .img_text_container2_col4  {
+            height: 250px;
+        }
+        .img_text_container2_col1 p {
+            font-size: 20px;
+        }
+        .button_container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button_container button {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            padding: 15px;
+            background-color: #e4d7cb;
+            cursor: pointer;
+        }
+        .button_container button:hover {
+            opacity: 0.5;
+        }
+        p{
+            text-align: justify;
+        }
+        /* footer */
+        .footer_container {
+            text-align: center;
+            background-color: #e4d7cb;
+            font-size: 17px;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            margin-top: 70px;
+        }
+        .footer_container > p{
+            text-align: center;
+        }
+        header, nav {
+            padding: 20px 40px 10px 40px;
+        }
+        .header_container {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .logout_form {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .logout_form button{
+            border: none;
+            color: darkslategray;
+            background-color: #f6f4f3;
+            font-size: 16px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .login a {
+            color: darkslategray;
+            text-decoration: none;
+            font-size: 15px;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        .menu a {
+            color: darkslategray;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 15px;
+            margin-right: 40px;
+        }
+        .login a:hover, .menu a:hover, .logout_form button:hover {
+            color: darkgoldenrod;
+        }
+        .nav_container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-right: 70px;
+            padding-top: 40px;
+        }
+        /* SIGN_UP.HTML */
+        .logo_sign_up_container a {
+            text-decoration: none;
+            color: black;
+        }
+        .sign_up_form_container form {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sign_up_form_container label{
+            display: block;
+            width: 100%;
+            margin: 15px 0 5px;
+            text-align: left;
+        }
+        .sign_up_form_container input {
+            width: 90%;
+            height: 25px;
+            margin-bottom: 10px;
+        }
+        .button_sign_up button{
+            width: 200px;
+            color: white;
+            background-color: #e4d7cb;
+            font-weight: bold;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            margin-top: 20px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .button_sign_up button:active {
+            opacity: 0.5;
+        }
+    </style>
 </head>
-<body>
 <body>
 <header>
     <!--USER INFO-->
