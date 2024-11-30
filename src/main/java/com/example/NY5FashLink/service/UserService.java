@@ -19,15 +19,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@AllArgsConstructor
+
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    private Cloudinary cloudinary;
+    private final Cloudinary cloudinary;
 
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, Cloudinary cloudinary) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.cloudinary = cloudinary;
+    }
 
     public String uploadProfilePicture(MultipartFile file) throws IOException {
         // Convert the MultipartFile to a byte array

@@ -1,9 +1,7 @@
 package com.example.NY5FashLink.controller;
 
 import com.example.NY5FashLink.model.*;
-import com.example.NY5FashLink.service.CloudinaryService;
 import com.example.NY5FashLink.service.UserService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

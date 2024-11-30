@@ -24,14 +24,6 @@ public class CustomerService {
     private final PasswordEncoder passwordEncoder;
     private Cloudinary cloudinary;
 
-    public List<Users> findAll() {
-        return customerRepository.findAll();
-    }
-
-    public Users findById(String id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
-    }
 
     public String uploadProfilePicture(MultipartFile file) throws IOException {
         // Convert the MultipartFile to a byte array
@@ -86,25 +78,6 @@ public class CustomerService {
     }
 
     // Get logged-in user
-    public String getLoggedInUserFirstName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null) {
-            // Check if the user is authenticated via OAuth2
-            if (authentication.getPrincipal() instanceof OAuth2User) {
-                OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-                // Access user's first name
-                return oauth2User.getAttribute("given_name");
-            }
-            // Check if the user is authenticated via form login
-            else if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
-                return authentication.getName(); // Returns the email
-            }
-        }
-        return null; // No authenticated user
-    }
-
-    // Get logged-in user
     public String getLoggedInUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -119,22 +92,6 @@ public class CustomerService {
                 return authentication.getName(); // Returns user email
             }
         }
-        return null; // No authenticated user
+        return null;
     }
-
-
-//    public void updateCustomer(String id, CustomerDTO customerDTO) {
-//        Customer customer = findById(id);
-//        customer.setName(customerDTO.getName());
-//        customer.setEmail(customerDTO.getEmail());
-//        if (!customerDTO.getPassword().isBlank()) {
-//            customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
-//        }
-//        customer.setRole(customerDTO.getRole());
-//        customerRepository.save(customer);
-//    }
-//
-//    public void deleteCustomer(String id) {
-//        customerRepository.deleteById(id);
-//    }
 }
