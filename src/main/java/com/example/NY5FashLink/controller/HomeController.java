@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes({"loggedInUser","loggedInUserEmail"}) // Mark this attribute as session-scoped
+@SessionAttributes({"loggedInUser","loggedInUserEmail"})
 public class HomeController {
 
     private final UserService userService;
