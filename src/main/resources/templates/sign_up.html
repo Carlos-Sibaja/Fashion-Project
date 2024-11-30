@@ -34,7 +34,7 @@
         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red; font-size: 15px;"></span>
         <span th:if="${emailError}" th:text="${emailError}" style="color: red; font-size: 15px;"></span>
 
-        <label for="profilePicture">Profile Picture | Optional</label>
+        <label for="profilePicture">Profile Picture | Required</label>
         <input type="file" th:field="*{profilePicture}" id="profilePicture" accept="image/*">
 
         <label for="gender">Gender | Required</label>
