@@ -15,7 +15,7 @@ import java.util.List;
 public class AdvisorService {
 
     @Autowired
-    MongoTemplate mongoTemplate = null;
+    MongoTemplate mongoTemplate;
 
     public List<Advisor> findAdvisors(String category, String availability, Double minCost,
                                       Double maxCost, String name ) {
